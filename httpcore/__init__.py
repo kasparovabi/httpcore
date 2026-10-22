@@ -1,3 +1,5 @@
+import sys as __sys
+
 from ._api import request, stream
 from ._async import (
     AsyncConnectionInterface,
@@ -134,8 +136,11 @@ __all__ = [
 __version__ = "1.0.9"
 
 
-__locals = locals()
+# Read the names as module attributes rather than from `locals()`: with
+# `-X lazy_imports=all` on Python 3.15+, the imports above are lazy and the
+# namespace holds placeholders until a name is looked up this way.
+__module = __sys.modules[__name__]
 for __name in __all__:
     # Exclude SOCKET_OPTION, it causes AttributeError on Python 3.14
     if not __name.startswith(("__", "SOCKET_OPTION")):
-        setattr(__locals[__name], "__module__", "httpcore")  # noqa
+        setattr(getattr(__module, __name), "__module__", "httpcore")  # noqa

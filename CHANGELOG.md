@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+- Fix `AttributeError` on first use when Python 3.15 runs with `-X lazy_imports=all`.
 - Fix `max_keepalive_connections` not being properly handled. (#1000)
 
 ## Version 1.0.9 (April 24th, 2025)
